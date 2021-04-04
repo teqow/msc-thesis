@@ -1,5 +1,5 @@
 # Idea
- Comparison of Microsoft Azure and Amazon Web Services in terms of configuring CI/CD for a sample application.
+ Comparison of Microsoft Azure and Amazon Web Services in terms of configuring CI/CD for a sample application. <br/>
  It is the topic of my Master of Science thesis, and I want to share this knowledge with open source environment.
 
 # Goal
