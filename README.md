@@ -8,6 +8,6 @@
  It is SIMPLY solution only for example, the implementation is not important part in this case. In this example, we can imagine many solutions for example payments provider, or    any provider in our microservices infrastructure.
 
 # Conditions I will take into account:
-* Easy of integration with cloud provider
+* Cloud provider flexibility
 * Costs
 * Stability and general management of cloud resources
