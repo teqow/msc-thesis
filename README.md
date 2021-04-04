@@ -1,4 +1,4 @@
-# msc-thesis
+# Idea
  Comparison of Microsoft Azure and Amazon Web Services in terms of configuring CI/CD for a sample application.
 
 # Goal
