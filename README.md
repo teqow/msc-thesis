@@ -1,5 +1,6 @@
 # Idea
  Comparison of Microsoft Azure and Amazon Web Services in terms of configuring CI/CD for a sample application.
+ It is the topic of my Master of Science thesis, and I want to share this knowledge with open source environment.
 
 # Goal
  The main goal is indicate which one cloud provider is best solution for my business case.
