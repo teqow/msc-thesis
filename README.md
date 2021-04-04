@@ -1,2 +1,2 @@
-# msc-dissertation
- My master’s dissertation
+# msc-thesis
+ My master’s thesis
