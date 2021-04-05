@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
-
+import apiConfig from './api.config.json';
 
 function App() {
-  const [value, setValue] = useState('');
-  const [input, setInput] = useState('')
+  const [currency, setValue] = useState('');
+  const [value, setInput] = useState('')
   const [data, setData] = useState(0)
 
   const handleSelect=(e)=>{
@@ -15,16 +15,16 @@ function App() {
   }
 
   const onClick = () => {
-    let url = 'http://localhost:57840/api/ConvertCurrency?currency={value}&value={input}'
+    let url = apiConfig.ApiUrl + "ConvertCurrency?currency={currency}&value={value}";
+
+    url = url.replace(
+      '{currency}',
+      encodeURIComponent('' + currency)
+    );
 
     url = url.replace(
       '{value}',
       encodeURIComponent('' + value)
-    );
-
-    url = url.replace(
-      '{input}',
-      encodeURIComponent('' + input)
     );
 
     fetch(url)
@@ -41,7 +41,7 @@ function App() {
       
       <DropdownButton
       alignRight
-      title="Dropdown right"
+      title="Select Currency"
       id="dropdown-menu-align-right"
       onSelect={handleSelect}
         >
@@ -50,11 +50,11 @@ function App() {
       </DropdownButton>
 
       <div>
-      <label>Please specify:</label>
-      <input value={input} onInput={e => setInput(e.target.value)}/>
+      <label>Value</label>
+      <input value={value} onInput={e => setInput(e.target.value)}/>
       </div>
+      <h4>You selected {currency}</h4>
       <h4>You selected {value}</h4>
-      <h4>You selected {input}</h4>
 
       <div>
       <button onClick={onClick}>Get data</button>
