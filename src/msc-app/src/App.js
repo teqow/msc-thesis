@@ -1,66 +1,69 @@
 import React, { useState } from 'react';
+import { Button, Card, Form, Col, Row, Container } from 'react-bootstrap';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown'
 import apiConfig from './api.config.json';
 
 function App() {
-  const [currency, setValue] = useState('');
+  const [currency, setValue] = useState('GBP');
   const [value, setInput] = useState('')
   const [data, setData] = useState(0)
 
-  const handleSelect=(e)=>{
-    console.log(e);
-    setValue(e)
-  }
 
   const onClick = () => {
-    let url = apiConfig.ApiUrl + "ConvertCurrency?currency={currency}&value={value}";
-
-    url = url.replace(
-      '{currency}',
-      encodeURIComponent('' + currency)
-    );
-
-    url = url.replace(
-      '{value}',
-      encodeURIComponent('' + value)
-    );
+    const url = `${apiConfig.ApiUrl}ConvertCurrency?currency=${currency}&value=${value}`
 
     fetch(url)
     .then(res => res.json())
     .then(
       (result) => {
         setData(result);
-      }
-    )
+      })
     }
 
   return (
-    <div className="App container">
+    <Container className="mt-5">
+      <Row>
+        Currency Converter to PLN
+      </Row>
+      <Row>
+        <Col>
+          <Form>
+            <Form.Group as={Col}>
+            <Form.Row>
+                <Form.Group>
+                <Form.Label>Select Currency</Form.Label>
+                <Form.Control as="select" custom onChange={(e) => setValue(e.target.value)}>
+                    <option>GBP</option>
+                    <option>EUR</option>
+                </Form.Control>
+                </Form.Group>
+            </Form.Row>
+
+              <Form.Row>
+                <Form.Label>Amount</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="currency_value"
+                  value={value}
+                  onChange={e => setInput(e.target.value)}
+                />
+              </Form.Row>
+            </Form.Group>
+          </Form>
+        </Col>
+      </Row>
+
+      <Row className="justify-content-md-center mt-3">
+        <Button size="lg" onClick={onClick}>Convert</Button>
+      </Row>
       
-      <DropdownButton
-      alignRight
-      title="Select Currency"
-      id="dropdown-menu-align-right"
-      onSelect={handleSelect}
-        >
-              <Dropdown.Item eventKey="GBP">GBP</Dropdown.Item>
-              <Dropdown.Item eventKey="EUR">EUR</Dropdown.Item>
-      </DropdownButton>
-
-      <div>
-      <label>Value</label>
-      <input value={value} onInput={e => setInput(e.target.value)}/>
-      </div>
-      <h4>You selected {currency}</h4>
-      <h4>You selected {value}</h4>
-
-      <div>
-      <button onClick={onClick}>Get data</button>
-      <div>{data}</div>
-    </div>
-    </div>
+      <Row>
+        <Card className="flex-fill px-3 py-3 mt-3">
+          {data}
+        </Card>
+      </Row>
+    </Container>
   );
 }
 
