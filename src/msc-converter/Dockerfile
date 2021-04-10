@@ -11,7 +11,6 @@ RUN dotnet build "msc-converter.csproj" -c Release -o /app
 RUN dotnet publish "msc-converter.csproj" -c Release -o /app
 
 EXPOSE 80
-EXPOSE 57840
-ENV ASPNETCORE_URLS=http://*:57840
+ENV ASPNETCORE_URLS=http://+:80  
 WORKDIR /app
 ENTRYPOINT ["dotnet", "msc-converter.dll"]
