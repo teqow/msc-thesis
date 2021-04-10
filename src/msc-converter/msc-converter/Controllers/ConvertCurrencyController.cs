@@ -19,6 +19,5 @@ namespace msc_converter.Controllers
         {
             return await _currencyConvert.ConvertCurrency(currency, value);
         }
-
     }
 }

@@ -10,6 +10,7 @@ RUN dotnet build "msc-exchange-rate-provider.csproj" -c Release -o /app
 
 RUN dotnet publish "msc-exchange-rate-provider.csproj" -c Release -o /app
 
-EXPOSE 80
+EXPOSE 44302
+ENV ASPNETCORE_URLS=http://*:44302
 WORKDIR /app
 ENTRYPOINT ["dotnet", "msc-exchange-rate-provider.dll"]

@@ -10,18 +10,21 @@ namespace msc_converter
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
+        public IConfigurationSection SettingsSection => _configuration.GetSection("Settings");
+        public ApplicationSettings ApplicationSettings => SettingsSection.Get<ApplicationSettings>();
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddHttpClient();
-            services.Configure<Settings>(Configuration.GetSection("Settings"));
+            services.Configure<ApplicationSettings>(SettingsSection);
             services.AddTransient<IExchangeRateProvider, ExchangeRateProvider>();
             services.AddTransient<ICurrencyConvertService, CurrencyConvertService>();
 
@@ -33,6 +36,15 @@ namespace msc_converter
                     Title = "Converter",
                 });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("mscpolicy", builder => builder
+                    .WithOrigins(ApplicationSettings.AllowedDomains)
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,17 +53,10 @@ namespace msc_converter
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseCors(x => x
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(origin => true)
-                .AllowCredentials());
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
+            
             app.UseRouting();
+
+            app.UseCors("mscpolicy");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

@@ -12,10 +12,10 @@ namespace msc_converter
 
     public class ExchangeRateProvider : IExchangeRateProvider
     {
-        private readonly IOptions<Settings> _settingsProvider;
+        private readonly IOptions<ApplicationSettings> _settingsProvider;
         private static readonly HttpClient client = new HttpClient();
 
-        public ExchangeRateProvider(IOptions<Settings> settingsProvider)
+        public ExchangeRateProvider(IOptions<ApplicationSettings> settingsProvider)
         {
             _settingsProvider = settingsProvider;
         }
