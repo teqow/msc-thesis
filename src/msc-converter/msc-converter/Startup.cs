@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 
 namespace msc_converter
 {
@@ -28,15 +27,6 @@ namespace msc_converter
             services.AddTransient<IExchangeRateProvider, ExchangeRateProvider>();
             services.AddTransient<ICurrencyConvertService, CurrencyConvertService>();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "Converter",
-                });
-            });
-
             services.AddCors(options =>
             {
                 options.AddPolicy("mscpolicy", builder => builder
@@ -55,14 +45,7 @@ namespace msc_converter
             }
             
             app.UseRouting();
-
             app.UseCors("mscpolicy");
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
-            });
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

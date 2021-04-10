@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Card, Form, Col, Row, Container } from 'react-bootstrap';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import apiConfig from './api.config.json';
 
@@ -8,7 +7,6 @@ function App() {
   const [currency, setValue] = useState('GBP');
   const [value, setInput] = useState('')
   const [data, setData] = useState(0)
-
 
   const onClick = () => {
     const url = `${apiConfig.ApiUrl}ConvertCurrency?currency=${currency}&value=${value}`

@@ -1,5 +1,9 @@
-services:
+networks:
+      msc-network:
+        name: msc-network
+        external: true
 
+services:
     msc-converter:
       container_name: msc-converter
       build:
@@ -8,7 +12,9 @@ services:
       networks:
         - msc-network
       ports:
-        - "57840:57840"
+        - 57840:57840
+      depends_on:
+      - msc-exchange-rate-provider
   
     msc-exchange-rate-provider:
       container_name: msc-exchange-rate-provider
@@ -18,7 +24,7 @@ services:
       networks:
         - msc-network
       ports:
-        - "44302:44302"
+        - 44302:44302
     
     msc-app:
       container_name: msc-app
@@ -31,8 +37,7 @@ services:
         - 3000:3000
       environment:
         - CHOKIDAR_USEPOLLING=true
-    
-networks:
-      msc-network:
-        external: true
+        
+        
+        
         
