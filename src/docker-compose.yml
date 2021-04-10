@@ -3,29 +3,36 @@ services:
     msc-converter:
       container_name: msc-converter
       build:
-        context: .
-        dockerfile: msc-converter/Dockerfile
+        context: "./msc-converter"
+        dockerfile: Dockerfile
+      networks:
+        - msc-network
       ports:
-        - "57840:80"
+        - "57840:57840"
   
     msc-exchange-rate-provider:
       container_name: msc-exchange-rate-provider
       build:
-        context: .
-        dockerfile: msc-exchange-rate-provider/Dockerfile
+        context: "./msc-exchange-rate-provider"
+        dockerfile: Dockerfile
+      networks:
+        - msc-network
       ports:
-        - "44302:80"
-        
+        - "44302:44302"
+    
     msc-app:
       container_name: msc-app
       build:
-        context: .
-        dockerfile: msc-app/Dockerfile
-      volumes:
-        - '.:/app'
-        - '/app/node_modules'
+        context: "./msc-app"
+        dockerfile: Dockerfile
+      networks:
+        - msc-network
       ports:
         - 3000:3000
       environment:
         - CHOKIDAR_USEPOLLING=true
+    
+networks:
+      msc-network:
+        external: true
         
