@@ -7,7 +7,6 @@ RUN dotnet restore "msc-exchange-rate-provider/msc-exchange-rate-provider.csproj
 COPY . .
 WORKDIR "/src/msc-exchange-rate-provider"
 RUN dotnet build "msc-exchange-rate-provider.csproj" -c Release -o /app
-
 RUN dotnet publish "msc-exchange-rate-provider.csproj" -c Release -o /app
 
 EXPOSE 80

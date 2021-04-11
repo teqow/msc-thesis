@@ -1,16 +1,9 @@
-networks:
-      msc-network:
-        name: msc-network
-        external: true
-
 services:
     msc-converter:
       container_name: msc-converter
       build:
         context: "./msc-converter"
         dockerfile: Dockerfile
-      networks:
-        - msc-network
       ports:
         - 57840:80
       depends_on:
@@ -21,8 +14,6 @@ services:
       build:
         context: "./msc-exchange-rate-provider"
         dockerfile: Dockerfile
-      networks:
-        - msc-network
       ports:
         - 44302:80
     
@@ -31,8 +22,6 @@ services:
       build:
         context: "./msc-app"
         dockerfile: Dockerfile
-      networks:
-        - msc-network
       ports:
         - 3000:3000
       environment:

@@ -7,7 +7,6 @@ RUN dotnet restore "msc-converter/msc-converter.csproj"
 COPY . .
 WORKDIR "/src/msc-converter"
 RUN dotnet build "msc-converter.csproj" -c Release -o /app
-
 RUN dotnet publish "msc-converter.csproj" -c Release -o /app
 
 EXPOSE 80
